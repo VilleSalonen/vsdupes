@@ -1,0 +1,20 @@
+{
+  "name": "vsdupes",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Ville Salonen <ville.salonen@iki.fi>",
+  "license": "ISC",
+  "dependencies": {
+    "command-line-args": "^2.1.6",
+    "lodash": "4.16.3",
+    "walk": "^2.3.9",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.0.3",
+    "@types/lodash": "4.14.36",
+    "@types/node": "^6.0.41",
+    "@types/winston": "^0.0.28"
+  }
+}
