@@ -5,23 +5,21 @@ var CHUNK_SIZE = 1024;
 
 export class QuickMD5Hasher {
     public hash(path: string): Promise<string> {
-        var done: Function;
-        var promise = new Promise<string>((resolve, reject) => done = resolve);
+        return new Promise<string>((resolve, reject) => {
 
-        try {
             fs.open(path, "r", function(err, fd) {
-                if (err) return;
+                if (err) return reject(err);
 
                 if (typeof fd === "undefined")
-                    return;
+                    return resolve(); // or reject?
 
                 fs.stat(path, function(err, stats) {
-                    if (err) return;
+                    if (err) return reject(err);
 
                     // Sometimes stats is undefined. This is probably due to file being
                     // moved elsewhere or deleted.
                     if (typeof stats === "undefined")
-                        return;
+                        return resolve(); // or reject?
 
                     var input_size: number = stats.size;
                     var offset: number = input_size / 2.0 - CHUNK_SIZE / 2.0;
@@ -36,12 +34,11 @@ export class QuickMD5Hasher {
 
                         fs.close(fd);
 
-                        done(hash);
+                        resolve(hash);
                     });
                 });
             });
-        }
-        catch (e) {
+        }).catch(e => {
             console.log(e);
             if (e.name === "TypeError") {
                 // If hashing is done when file is still being copied, it will
@@ -50,8 +47,7 @@ export class QuickMD5Hasher {
             else {
                 throw e;
             }
-        };
+        });
 
-        return promise;
     }
 }
