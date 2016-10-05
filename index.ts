@@ -115,7 +115,7 @@ async function main() {
     console.log(possibleDuplicates2.length + " possible duplicate groups found.");
 
     process.stdout.write("Grouping by accurate hashing... ");
-    let possibleDuplicates3 = await weedFilesByAccurateHash(possibleDuplicates);
+    let possibleDuplicates3 = await weedFilesByAccurateHash(possibleDuplicates2);
     console.log(possibleDuplicates3.length + " definite duplicate groups found.");
 
     console.log();
